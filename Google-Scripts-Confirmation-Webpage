@@ -1,0 +1,93 @@
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.openById("12Nd4nxFvhwL257rrEJ4-XbEhV3TgVNxXk-aeSstLy7U").getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    sheet.appendRow([data.text, data.url, data.title, data.timestamp]);
+    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+  } catch (err) {
+    return ContentService.createTextOutput("Error: " + err.message).setMimeType(ContentService.MimeType.TEXT);
+  }
+}
+
+function doGet(e) {
+  var html = `
+    <html>
+      <head>
+        <title>Web-to-Sheet Logger</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          body {
+            background: linear-gradient(135deg, #4285F4 0%, #34a853 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .container {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60,60,60,0.18);
+            padding: 40px 32px 32px 32px;
+            max-width: 400px;
+            text-align: center;
+          }
+          .logo {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+          }
+          h1 {
+            color: #4285F4;
+            margin-bottom: 8px;
+            font-size: 2rem;
+            letter-spacing: 1px;
+          }
+          p {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 0;
+          }
+          .status {
+            margin-top: 24px;
+            display: inline-block;
+            background: #e8f0fe;
+            color: #1967d2;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <img class="logo" src="https://www.gstatic.com/images/branding/product/1x/sheets_2020q4_48dp.png" alt="Sheet Logo"/>
+          <h1>Web-to-Sheet Logger</h1>
+          <p>
+            Your extension is <b>running</b> and ready to log highlights to your Google Sheet.<br>
+            <span style="font-size:0.95em;color:#888;">(This is the backend endpoint for your Chrome extension. Click on the extension icon to log highlights to your Google Sheet.)</span>
+          </p>
+          <div class="status">✅ Web App is Live</div>
+        </div>
+      </body>
+    </html>
+  `;
+  return HtmlService.createHtmlOutput(html);
+}
+
+function sendToSheet(data) {
+  fetch(scriptURL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  }).then(() => {
+    alert("Saved to Google Sheet!");
+  }).catch(() => {
+    alert("Failed to save. Try again.");
+  });
+}
