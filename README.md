@@ -1,7 +1,7 @@
 # Web-to-Sheet Logger
 
 A Chrome extension to capture highlighted text from any webpage and log it to a connected Google Sheet, along with metadata (timestamp, page URL, and title).
-
+Link to the Google Sheet - https://docs.google.com/spreadsheets/d/12Nd4nxFvhwL257rrEJ4-XbEhV3TgVNxXk-aeSstLy7U/edit?usp=sharing
 ---
 
 ## Features
