@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web-to-Sheet Logger</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .input-label { font-weight: 600; color: #4285F4; margin-bottom: 4px; display: block; }
+    textarea {
+      width: 100%;
+      min-height: 60px;
+      border-radius: 6px;
+      border: 1px solid #cfd8dc;
+      padding: 8px;
+      font-size: 1em;
+      margin-bottom: 10px;
+      resize: vertical;
+      font-family: inherit;
+    }
+    #saveHighlightBtn {
+      background: #34a853;
+      margin-right: 8px;
+    }
+    #saveHighlightBtn:hover {
+      background: #219150;
+    }
+    #previewModal {
+      display: none;
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.25);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(60,60,60,0.18);
+      padding: 28px 24px 20px 24px;
+      max-width: 350px;
+      width: 90vw;
+      text-align: left;
+      animation: fadeIn 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .modal-content h3 {
+      color: #4285F4;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    .meta-label { color: #888; font-size: 0.98em; }
+    .meta-value { color: #222; margin-bottom: 8px; word-break: break-all; }
+    .modal-actions { text-align: right; margin-top: 18px; }
+    .modal-actions button {
+      margin-left: 8px;
+      padding: 6px 16px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .confirm-btn { background: #34a853; color: #fff; }
+    .confirm-btn:hover { background: #219150; }
+    .cancel-btn { background: #eee; color: #444; }
+    .cancel-btn:hover { background: #ccc; }
+  </style>
+</head>
+<body>
+  <h2>Web-to-Sheet Logger</h2>
+  <p>Paste or type highlighted text below and log it to your Google Sheet.</p>
+  <label class="input-label" for="highlightInput">Highlighted Text</label>
+  <textarea id="highlightInput" placeholder="Paste or type your highlight here..."></textarea>
+  <button id="saveHighlightBtn">Save Highlight</button>
+
+  <div id="previewModal">
+    <div class="modal-content">
+      <h3>Confirm Highlight Details</h3>
+      <div><span class="meta-label">Text:</span><div class="meta-value" id="previewText"></div></div>
+      <div><span class="meta-label">URL:</span><div class="meta-value" id="previewUrl"></div></div>
+      <div><span class="meta-label">Title:</span><div class="meta-value" id="previewTitle"></div></div>
+      <div><span class="meta-label">Timestamp:</span><div class="meta-value" id="previewTimestamp"></div></div>
+      <div class="modal-actions">
+        <button class="cancel-btn" id="cancelSendBtn">Cancel</button>
+        <button class="confirm-btn" id="confirmSendBtn">Send to Sheet</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
