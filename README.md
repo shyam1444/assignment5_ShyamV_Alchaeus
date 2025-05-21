@@ -48,6 +48,7 @@ function doGet(e) {
   - Set **Who has access** to **Anyone**
   - Click **Deploy** and **Authorize** if prompted
   - Copy the Web App URL (ends with `/exec`)
+  - https://script.google.com/macros/s/AKfycbyXoLOc09QmyT_nB3UHi2JL1xYo_m12yGKBLiNMr1vejBOEtOg-k_TCXfng93_YflQfWw/exec - Web URL of my project
 
 ### 2. Chrome Extension Setup
 - Clone or download this repository.
